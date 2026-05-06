@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('transaction_items', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('transaction_id')
+                ->constrained('transactions');
+            $table->foreignId('menu_id')
+                ->constrained('menus');
+            $table->integer('quantity');
+            $table->integer('cost_price_snapshot');
+            $table->integer('profit');
             $table->timestamps();
         });
     }
