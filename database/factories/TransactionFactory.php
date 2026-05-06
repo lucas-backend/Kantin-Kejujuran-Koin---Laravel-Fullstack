@@ -15,10 +15,19 @@ class TransactionFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+    protected $model = Transaction::class;
+
     public function definition(): array
     {
         return [
-            //
+            'buyer_name' => fake()->name(),
+            'payment_method' => fake()->randomElement([
+                Transaction::PAYMENT_CASH,
+                Transaction::PAYMENT_QRIS,
+            ]),
+            'total_amount' => 0,
+            'total_profit' => 0,
         ];
     }
 }
