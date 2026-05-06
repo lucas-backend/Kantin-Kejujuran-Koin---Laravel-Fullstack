@@ -17,6 +17,7 @@ return new class extends Migration
             $table->enum('payment_method', ['CASH', 'QRIS']);
             $table->integer('total_amount');
             $table->integer('total_profit');
+            $table->timestamps();
         });
     }
 
