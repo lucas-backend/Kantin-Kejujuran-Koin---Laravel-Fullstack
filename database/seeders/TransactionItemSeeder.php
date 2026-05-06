@@ -2,12 +2,10 @@
 
 namespace Database\Seeders;
 
-
 use App\Models\Menu;
 use App\Models\Transaction;
 use App\Models\TransactionItem;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class TransactionItemSeeder extends Seeder
 {
