@@ -13,7 +13,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::latest()->get();
+        $categories = Category::withCount('menus')->latest()->get();
 
         return view('admin.categories.index', compact('categories'));
     }
@@ -67,7 +67,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->delete();
+        Category::query()->whereKey($category->getKey())->delete();
 
         return redirect()->route('categories.index');
     }

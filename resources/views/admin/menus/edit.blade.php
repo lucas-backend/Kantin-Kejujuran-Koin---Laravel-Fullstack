@@ -1,84 +1,76 @@
-<h1>Edit Menu</h1>
+@extends('admin.layouts.app')
 
-<form action="{{ route('menus.update', $menu) }}" method="POST" enctype="multipart/form-data">
-  @csrf
-  @method('PUT')
+@section('content')
 
-  <div>
-    <label>Nama Menu</label><br>
-    <input type="text" name="name" value="{{ old('name', $menu->name) }}" required />
-    @error('name')
-      <p style="color: red;">{{ $message }}</p>
-    @enderror
-  </div>
+  <h1 class="text-2xl font-semibold mb-4">Edit Menu</h1>
 
-  <div>
-    <label>Harga Pokok</label><br>
-    <input type="number" name="cost_price" value="{{ old('cost_price', $menu->cost_price) }}" required />
-    @error('cost_price')
-      <p style="color: red;">{{ $message }}</p>
-    @enderror
-  </div>
+  <form action="{{ route('menus.update', $menu) }}" method="POST" enctype="multipart/form-data" class="space-y-4 max-w-lg">
+    @csrf
+    @method('PUT')
 
-  <div>
-    <label>Harga Jual</label><br>
-    <input type="number" name="selling_price" value="{{ old('selling_price', $menu->selling_price) }}" required />
-    @error('selling_price')
-      <p style="color: red;">{{ $message }}</p>
-    @enderror
-  </div>
+    <div>
+      <label class="block text-sm">Nama Menu</label>
+      <input type="text" name="name" value="{{ old('name', $menu->name) }}" required class="w-full border rounded px-2 py-1" />
+      @error('name')<p class="text-red-500 text-sm">{{ $message }}</p>@enderror
+    </div>
 
-  <div>
-    <label>Stok</label><br>
-    <input type="number" name="stock" value="{{ old('stock', $menu->stock) }}" required />
-    @error('stock')
-      <p style="color: red;">{{ $message }}</p>
-    @enderror
-  </div>
-
-  <div>
-    <label>Gambar</label><br>
-    @if ($menu->image_path)
+    <div class="grid grid-cols-2 gap-4">
       <div>
-        <img src="{{ asset('storage/' . $menu->image_path) }}" width="150" alt="{{ $menu->name }}">
-        <p>Gambar saat ini</p>
+        <label class="block text-sm">Harga Pokok</label>
+        <input type="number" name="cost_price" value="{{ old('cost_price', $menu->cost_price) }}" required class="w-full border rounded px-2 py-1" />
+        @error('cost_price')<p class="text-red-500 text-sm">{{ $message }}</p>@enderror
       </div>
-    @endif
-    <input type="file" name="image_path" accept="image/*" />
-    <p style="color: gray; font-size: 12px;">Kosongkan jika tidak ingin mengubah gambar</p>
-    @error('image_path')
-      <p style="color: red;">{{ $message }}</p>
-    @enderror
-  </div>
+      <div>
+        <label class="block text-sm">Harga Jual</label>
+        <input type="number" name="selling_price" value="{{ old('selling_price', $menu->selling_price) }}" required class="w-full border rounded px-2 py-1" />
+        @error('selling_price')<p class="text-red-500 text-sm">{{ $message }}</p>@enderror
+      </div>
+    </div>
 
-  <div>
-    <label>
-      <input type="checkbox" name="is_active" value="1"
-        {{ old('is_active', $menu->is_active) ? 'checked' : '' }} />
-      Aktif
-    </label>
-    @error('is_active')
-      <p style="color: red;">{{ $message }}</p>
-    @enderror
-  </div>
+    <div>
+      <label class="block text-sm">Stok</label>
+      <input type="number" name="stock" value="{{ old('stock', $menu->stock) }}" required class="w-32 border rounded px-2 py-1" />
+      @error('stock')<p class="text-red-500 text-sm">{{ $message }}</p>@enderror
+    </div>
 
-  <div>
-    <label>Kategori</label><br>
-    <select name="category_id">
-      <option value="">-- Pilih Kategori --</option>
-      @foreach ($categories as $category)
-        <option value="{{ $category->id }}"
-          {{ old('category_id', $menu->category_id) == $category->id ? 'selected' : '' }}>
-          {{ $category->name }}
-        </option>
-      @endforeach
-    </select>
-    @error('category_id')
-      <p style="color: red;">{{ $message }}</p>
-    @enderror
-  </div>
+    <div>
+      <label class="block text-sm">Gambar</label>
+      @if ($menu->image_path)
+        <div class="mb-2">
+          <img src="{{ asset('storage/' . $menu->image_path) }}" width="150" alt="{{ $menu->name }}">
+          <p class="text-sm text-gray-500">Gambar saat ini</p>
+        </div>
+      @endif
+      <input type="file" name="image_path" accept="image/*" />
+      <p class="text-sm text-gray-500">Kosongkan jika tidak ingin mengubah gambar</p>
+      @error('image_path')<p class="text-red-500 text-sm">{{ $message }}</p>@enderror
+    </div>
 
-  <br>
-  <button type="submit">Simpan</button>
-  <a href="{{ route('menus.index') }}">Batal</a>
-</form>
+    <div class="flex items-center gap-4">
+      <label class="flex items-center gap-2">
+        <input type="checkbox" name="is_active" value="1" {{ old('is_active', $menu->is_active) ? 'checked' : '' }} />
+        <span class="text-sm">Aktif</span>
+      </label>
+      @error('is_active')<p class="text-red-500 text-sm">{{ $message }}</p>@enderror
+    </div>
+
+    <div>
+      <label class="block text-sm">Kategori</label>
+      <select name="category_id" class="w-full border rounded px-2 py-1">
+        <option value="">-- Pilih Kategori --</option>
+        @foreach ($categories as $category)
+          <option value="{{ $category->id }}" {{ old('category_id', $menu->category_id) == $category->id ? 'selected' : '' }}>
+            {{ $category->name }}
+          </option>
+        @endforeach
+      </select>
+      @error('category_id')<p class="text-red-500 text-sm">{{ $message }}</p>@enderror
+    </div>
+
+    <div class="flex gap-2">
+      <button type="submit" class="bg-[#6c1517] text-white px-4 py-2 rounded">Simpan</button>
+      <a href="{{ route('menus.index') }}" class="px-4 py-2 rounded border">Batal</a>
+    </div>
+  </form>
+
+@endsection

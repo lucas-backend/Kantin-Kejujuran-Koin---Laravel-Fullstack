@@ -1,23 +1,23 @@
-<h1>Edit Kategori</h1>
+@extends('admin.layouts.app')
 
-<form action="{{ route('categories.update', $category) }}" method="POST">
+@section('content')
+  <h1 class="text-2xl font-semibold mb-4">Edit Kategori</h1>
+
+  <form action="{{ route('categories.update', $category) }}" method="POST" class="space-y-4 max-w-lg bg-white border rounded shadow-sm p-6">
     @csrf
     @method('PUT')
-    
+
     <div>
-        <label>Nama Kategori</label><br>
-        <input 
-            type="text" 
-            name="name" 
-            value="{{ old('name', $category->name) }}"
-            required
-        />
-        @error('name')
-            <p style="color: red;">{{ $message }}</p>
-        @enderror
+      <label class="block text-sm mb-1">Nama Kategori</label>
+      <input type="text" name="name" value="{{ old('name', $category->name) }}" required class="w-full border rounded px-3 py-2" />
+      @error('name')
+        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+      @enderror
     </div>
 
-    <br>
-    <button type="submit">Simpan</button>
-    <a href="{{ route('categories.index') }}">Batal</a>
-</form>
+    <div class="flex gap-2">
+      <button type="submit" class="bg-[#6c1517] text-white px-4 py-2 rounded">Simpan</button>
+      <a href="{{ route('categories.index') }}" class="px-4 py-2 rounded border">Batal</a>
+    </div>
+  </form>
+@endsection
