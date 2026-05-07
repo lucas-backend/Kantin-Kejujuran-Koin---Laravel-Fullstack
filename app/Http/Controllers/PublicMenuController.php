@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Models\Category;
 use App\Models\Transaction;
 use App\Models\TransactionItem;
 use Illuminate\Http\Request;
@@ -11,15 +12,34 @@ class PublicMenuController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Menu::query()->where('is_active', true)->where('stock', '>', 0)->latest();
+        $query = Menu::query()->where('is_active', true)->where('stock', '>', 0);
 
+        // search by name
+        if ($request->filled('q')) {
+            $q = $request->input('q');
+            $query->where('name', 'like', "%{$q}%");
+        }
+
+        // filter by category
         if ($request->filled('category')) {
             $query->where('category_id', $request->input('category'));
         }
 
+        // sorting
+        $sort = $request->input('sort');
+        if ($sort === 'price_asc') {
+            $query->orderBy('selling_price', 'asc');
+        } elseif ($sort === 'price_desc') {
+            $query->orderBy('selling_price', 'desc');
+        } else {
+            $query->latest();
+        }
+
         $menus = $query->with('category')->get();
 
-        return view('public.menus.index', compact('menus'));
+        $categories = Category::orderBy('name')->get();
+
+        return view('public.menus.index', compact('menus', 'categories'));
     }
 
     public function checkout(Request $request, Menu $menu)

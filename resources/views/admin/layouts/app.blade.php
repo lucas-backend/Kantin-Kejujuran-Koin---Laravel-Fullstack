@@ -16,7 +16,7 @@
       <div class="flex h-16 items-center border-b px-6">
         <div>
           <div class="text-xs uppercase tracking-[0.25em] text-[#6c1517]">Kantin Kejujuran</div>
-          <div class="text-lg font-semibold text-slate-900">Admin Panel</div>
+          <div class="text-lg font-semibold text-slate-900">KOMUNITAS INTEGRITAS</div>
         </div>
       </div>
 
@@ -41,7 +41,7 @@
         <div class="mb-6 flex items-center justify-between rounded-2xl border border-stone-200 bg-white px-4 py-3 shadow-sm">
           <div>
             <div class="text-xs uppercase tracking-[0.25em] text-stone-500">Dashboard Admin</div>
-            <div class="text-lg font-semibold text-slate-900">Kelola menu, kategori, dan transaksi</div>
+            {{-- <div class="text-lg font-semibold text-slate-900">Kelola menu, kategori, dan transaksi</div> --}}
           </div>
         </div>
 
