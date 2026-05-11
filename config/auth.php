@@ -114,4 +114,10 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+    'shared_buyer' => [
+        'name' => env('AUTH_SHARED_BUYER_NAME', 'Pembeli Kantin'),
+        'email' => env('AUTH_SHARED_BUYER_EMAIL', 'buyer@kantin.local'),
+        'password' => env('AUTH_SHARED_BUYER_PASSWORD', 'buyer123'),
+    ],
+
 ];

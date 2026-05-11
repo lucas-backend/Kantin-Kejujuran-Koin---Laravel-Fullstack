@@ -10,7 +10,7 @@
             </div>
 
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                <select name="category" class="flex-1 sm:flex-initial px-3 py-2 border rounded text-sm">
+                <select name="category" class="flex-1 px-3 py-2 border rounded text-sm">
                     <option value="">Semua</option>
                     @foreach ($categories ?? [] as $cat)
                         <option value="{{ $cat->id }}" @if ((string) request('category') === (string) $cat->id) selected @endif>
@@ -18,7 +18,7 @@
                     @endforeach
                 </select>
 
-                <select name="sort" class="flex-1 sm:flex-initial px-3 py-2 border rounded text-sm">
+                <select name="sort" class="flex-1 px-3 py-2 border rounded text-sm">
                     <option value="">Harga</option>
                     <option value="price_asc" @if (request('sort') === 'price_asc') selected @endif>Harga: Terendah</option>
                     <option value="price_desc" @if (request('sort') === 'price_desc') selected @endif>Harga: Tertinggi</option>
